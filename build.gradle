@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.testng:testng:7.7.1'
+    testImplementation 'io.rest-assured:rest-assured:5.3.0'
+    testImplementation 'com.google.code.gson:gson:2.10.1'
+}
+
+test {
+    useTestNG {
+        options {
+            if (project.hasProperty('testGroups')) {
+                suites = []
+                includeGroups = project.testGroups.split(',')
+            }
+        }
+    }
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
